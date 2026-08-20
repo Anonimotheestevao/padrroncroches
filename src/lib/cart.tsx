@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import { type Product } from "@/data/products";
 
-type CartItem = {
+export type CartItem = {
   product: Product;
   quantity: number;
   isFree?: boolean;

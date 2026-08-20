@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as MinhaContaPedidosRouteImport } from './routes/minha-conta/pedidos'
+import { Route as PedidoFalhaRouteImport } from './routes/pedido/falha'
+import { Route as PedidoPendenteRouteImport } from './routes/pedido/pendente'
+import { Route as PedidoSucessoRouteImport } from './routes/pedido/sucesso'
 import { Route as ProdutosSlugRouteImport } from './routes/produtos.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +29,34 @@ const CatalogoRoute = CatalogoRouteImport.update({
   path: '/catalogo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MinhaContaPedidosRoute = MinhaContaPedidosRouteImport.update({
+  id: '/minha-conta/pedidos',
+  path: '/minha-conta/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidoFalhaRoute = PedidoFalhaRouteImport.update({
+  id: '/pedido/falha',
+  path: '/pedido/falha',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidoPendenteRoute = PedidoPendenteRouteImport.update({
+  id: '/pedido/pendente',
+  path: '/pedido/pendente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidoSucessoRoute = PedidoSucessoRouteImport.update({
+  id: '/pedido/sucesso',
+  path: '/pedido/sucesso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProdutosSlugRoute = ProdutosSlugRouteImport.update({
@@ -38,34 +68,82 @@ const ProdutosSlugRoute = ProdutosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/checkout': typeof CheckoutRoute
   '/contato': typeof ContatoRoute
+  '/minha-conta/pedidos': typeof MinhaContaPedidosRoute
+  '/pedido/falha': typeof PedidoFalhaRoute
+  '/pedido/pendente': typeof PedidoPendenteRoute
+  '/pedido/sucesso': typeof PedidoSucessoRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/checkout': typeof CheckoutRoute
   '/contato': typeof ContatoRoute
+  '/minha-conta/pedidos': typeof MinhaContaPedidosRoute
+  '/pedido/falha': typeof PedidoFalhaRoute
+  '/pedido/pendente': typeof PedidoPendenteRoute
+  '/pedido/sucesso': typeof PedidoSucessoRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/checkout': typeof CheckoutRoute
   '/contato': typeof ContatoRoute
+  '/minha-conta/pedidos': typeof MinhaContaPedidosRoute
+  '/pedido/falha': typeof PedidoFalhaRoute
+  '/pedido/pendente': typeof PedidoPendenteRoute
+  '/pedido/sucesso': typeof PedidoSucessoRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/contato' | '/produtos/$slug'
+  fullPaths:
+    | '/'
+    | '/catalogo'
+    | '/checkout'
+    | '/contato'
+    | '/minha-conta/pedidos'
+    | '/pedido/falha'
+    | '/pedido/pendente'
+    | '/pedido/sucesso'
+    | '/produtos/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/contato' | '/produtos/$slug'
-  id: '__root__' | '/' | '/catalogo' | '/contato' | '/produtos/$slug'
+  to:
+    | '/'
+    | '/catalogo'
+    | '/checkout'
+    | '/contato'
+    | '/minha-conta/pedidos'
+    | '/pedido/falha'
+    | '/pedido/pendente'
+    | '/pedido/sucesso'
+    | '/produtos/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/catalogo'
+    | '/checkout'
+    | '/contato'
+    | '/minha-conta/pedidos'
+    | '/pedido/falha'
+    | '/pedido/pendente'
+    | '/pedido/sucesso'
+    | '/produtos/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
+  CheckoutRoute: typeof CheckoutRoute
   ContatoRoute: typeof ContatoRoute
+  MinhaContaPedidosRoute: typeof MinhaContaPedidosRoute
+  PedidoFalhaRoute: typeof PedidoFalhaRoute
+  PedidoPendenteRoute: typeof PedidoPendenteRoute
+  PedidoSucessoRoute: typeof PedidoSucessoRoute
   ProdutosSlugRoute: typeof ProdutosSlugRoute
 }
 
@@ -85,11 +163,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contato': {
       id: '/contato'
       path: '/contato'
       fullPath: '/contato'
       preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/minha-conta/pedidos': {
+      id: '/minha-conta/pedidos'
+      path: '/minha-conta/pedidos'
+      fullPath: '/minha-conta/pedidos'
+      preLoaderRoute: typeof MinhaContaPedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedido/falha': {
+      id: '/pedido/falha'
+      path: '/pedido/falha'
+      fullPath: '/pedido/falha'
+      preLoaderRoute: typeof PedidoFalhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedido/pendente': {
+      id: '/pedido/pendente'
+      path: '/pedido/pendente'
+      fullPath: '/pedido/pendente'
+      preLoaderRoute: typeof PedidoPendenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedido/sucesso': {
+      id: '/pedido/sucesso'
+      path: '/pedido/sucesso'
+      fullPath: '/pedido/sucesso'
+      preLoaderRoute: typeof PedidoSucessoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/produtos/$slug': {
@@ -105,7 +218,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
+  CheckoutRoute: CheckoutRoute,
   ContatoRoute: ContatoRoute,
+  MinhaContaPedidosRoute: MinhaContaPedidosRoute,
+  PedidoFalhaRoute: PedidoFalhaRoute,
+  PedidoPendenteRoute: PedidoPendenteRoute,
+  PedidoSucessoRoute: PedidoSucessoRoute,
   ProdutosSlugRoute: ProdutosSlugRoute,
 }
 export const routeTree = rootRouteImport

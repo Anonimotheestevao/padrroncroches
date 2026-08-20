@@ -1,6 +1,9 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useCart } from "@/lib/cart";
+import { useAuth } from "@/lib/auth";
 import { formatPrice, products } from "@/data/products";
 import { Lock, Minus, Plus, ShoppingBag, Sparkles, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { ProductCard } from "./ProductCard";
 import { ScrollArea } from "./ui/scroll-area";
@@ -8,6 +11,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 
 export function CartDrawer() {
   const { items, total, count, isOpen, close, add, remove, updateQuantity } = useCart();
+  const { user, open: openAuth } = useAuth();
+  const navigate = useNavigate();
 
   // Produto de order bump: sugere o primeiro item que o cliente ainda não tem no carrinho
   const bumpProduct = products.find((p) => !items.some((i) => i.product.slug === p.slug));
@@ -21,6 +26,18 @@ export function CartDrawer() {
   const recommended = products
     .filter((p) => !items.some((i) => i.product.slug === p.slug))
     .slice(0, 8);
+
+  const handleCheckout = () => {
+    if (!items.length) return;
+    if (!user) {
+      close();
+      openAuth("login");
+      toast.info("Entre ou crie sua conta para finalizar a compra.");
+      return;
+    }
+    close();
+    navigate({ to: "/checkout" });
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>
@@ -181,7 +198,10 @@ export function CartDrawer() {
                     <span className="text-lg font-black text-slate-900">{formatPrice(total)} BRL</span>
                   </div>
 
-                  <Button className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand font-display text-base font-extrabold uppercase tracking-widest text-white shadow-lg shadow-brand/20 transition hover:bg-brand-deep active:scale-[0.98]">
+                  <Button
+                    onClick={handleCheckout}
+                    className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand font-display text-base font-extrabold uppercase tracking-widest text-white shadow-lg shadow-brand/20 transition hover:bg-brand-deep active:scale-[0.98]"
+                  >
                     <Lock className="h-4 w-4" /> Finalizar Pedido
                   </Button>
                 </div>

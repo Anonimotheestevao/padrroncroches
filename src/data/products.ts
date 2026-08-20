@@ -62,6 +62,10 @@ export type Product = {
   descriptionSections?: DescriptionSection[];
   customerReviews?: CustomerReview[];
   hideBundleOffer?: boolean;
+  // Link para onde o cliente é enviado após o pagamento ser confirmado
+  // (ex: pasta do Google Drive com os PDFs). Enquanto não for preenchido,
+  // a página de pedido mostra uma mensagem pedindo para contatar o suporte.
+  deliveryUrl?: string;
   singleOfferShowcase?: { image: string; label: string }[];
   thematicThemes?: {
     title: string;

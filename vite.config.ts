@@ -12,4 +12,13 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // O projeto é hospedado no Vercel, não no Cloudflare (que é o padrão desta config).
+  // Sem isso, o build gera Workers do Cloudflare, e as rotas de servidor (checkout,
+  // webhook do Mercado Pago) não funcionam quando publicadas no Vercel.
+  nitro: {
+    preset: "vercel",
+    // "serverDir" funciona em runtime (habilita as rotas nativas em server/routes/,
+    // como o webhook do Mercado Pago) mas não está no tipo TS desta versão do pacote.
+    ...({ serverDir: "server" } as Record<string, unknown>),
+  },
 });
